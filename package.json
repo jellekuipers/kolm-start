@@ -15,7 +15,7 @@
     "dev": "vinxi dev",
     "format": "prettier --write .",
     "lint": "eslint app",
-    "start": "vinxi start",
+    "start": "NODE_ENV=production vinxi start",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

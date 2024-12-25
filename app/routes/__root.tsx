@@ -1,12 +1,10 @@
 import * as React from "react";
 import type { QueryClient } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import {
   createRootRouteWithContext,
   Outlet,
   ScrollRestoration,
 } from "@tanstack/react-router";
-import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { Meta, Scripts } from "@tanstack/start";
 import { createServerSideHelpers } from "@trpc/react-query/server";
 
@@ -14,6 +12,7 @@ import { DefaultCatchBoundary } from "~/components/default-catch-boundary";
 import { NotFound } from "~/components/not-found";
 import appCss from "~/styles/app.css?url";
 import { AppRouter } from "~/trpc/router";
+import { ReactQueryDevtools, TanStackRouterDevtools } from "~/utils/dev-tools";
 import { seo } from "~/utils/seo";
 
 export const Route = createRootRouteWithContext<{
