@@ -1,22 +1,12 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-
-import { trpc } from "~/trpc/react";
+import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/profile")({
+  loader: ({ context: { trpc } }) => trpc.user.me.fetch(),
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { data: user, isLoading: isLoadingUser } = trpc.user.me.useQuery();
+  const user = Route.useLoaderData();
 
-  return (
-    <div className="flex items-center justify-center h-screen flex-col gap-2 p-4">
-      <h2 className="font-bold">
-        {isLoadingUser ? "Loading.." : `Welcome, ${user}`}
-      </h2>
-      <Link className="text-blue-500 underline" to="/">
-        Home
-      </Link>
-    </div>
-  );
+  return <h2 className="font-bold">Welcome, {user}</h2>;
 }
