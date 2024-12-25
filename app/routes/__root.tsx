@@ -9,6 +9,7 @@ import { Meta, Scripts } from "@tanstack/start";
 import { createServerSideHelpers } from "@trpc/react-query/server";
 
 import { DefaultCatchBoundary } from "~/components/default-catch-boundary";
+import { Header } from "~/components/header";
 import { NotFound } from "~/components/not-found";
 import appCss from "~/styles/app.css?url";
 import { AppRouter } from "~/trpc/router";
@@ -63,8 +64,11 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <Meta />
       </head>
-      <body>
-        {children}
+      <body className="font-display">
+        <Header />
+        <main className="flex items-center justify-center h-screen flex-col gap-2 p-4">
+          {children}
+        </main>
         <ScrollRestoration />
         <TanStackRouterDevtools position="bottom-right" />
         <ReactQueryDevtools buttonPosition="bottom-left" />

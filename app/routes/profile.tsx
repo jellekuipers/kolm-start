@@ -1,22 +1,16 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { createFileRoute } from "@tanstack/react-router";
 
-import { trpc } from "~/trpc/react";
+import { useTRPC } from "~/trpc/react";
 
 export const Route = createFileRoute("/profile")({
+  loader: async ({ context: { trpc } }) => await trpc.user.me.prefetch(),
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { data: user, isLoading: isLoadingUser } = trpc.user.me.useQuery();
+  const trpc = useTRPC();
+  const { data: user } = useSuspenseQuery(trpc.user.me.queryOptions());
 
-  return (
-    <div className="flex items-center justify-center h-screen flex-col gap-2 p-4">
-      <h2 className="font-bold">
-        {isLoadingUser ? "Loading.." : `Welcome, ${user}`}
-      </h2>
-      <Link className="text-blue-500 underline" to="/">
-        Home
-      </Link>
-    </div>
-  );
+  return <h2 className="font-bold">Welcome, {user}</h2>;
 }
