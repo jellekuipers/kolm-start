@@ -1,6 +1,6 @@
 {
   "name": "kolm-start",
-  "description": "Tanstack Start template with tRPC, Tailwind",
+  "description": "TanStack Start template with tRPC, Tailwind",
   "author": "Jelle Kuipers <info@jellekuipers.com> (https://jellekuipers.com)",
   "version": "0.0.1",
   "type": "module",

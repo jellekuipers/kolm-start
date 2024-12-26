@@ -1,18 +1,52 @@
-# kolm-start
+<div align="center">
+  <a href="https://github.com/othneildrew/Best-README-Template">
+    <img src="public/favicon.svg" alt="Logo" width="80" height="80">
+  </a>
 
-### Tanstack Start template with tRPC, Tailwind
+  <h3 align="center">kolm start</h3>
 
-- `@tanstack/start v1` https://tanstack.com/start/latest
-- `@trpc v11` https://trpc.io/docs
-- `tailwindcss v4` https://tailwindcss.com/docs/v4-beta
+  <p align="center">
+    A TanStack Start template with tRPC, Tailwind
+    <br />
+    <a href="https://kolm-start.vercel.app">View Demo</a>
+    ·
+    <a href="https://github.com/jellekuipers/kolm-start/issues/new?labels=bug">Report Bug</a>
+    ·
+    <a href="https://github.com/jellekuipers/kolm-start/issues/new?labels=feature-request">Request Feature</a>
+  </p>
+</div>
 
-## Getting started
+## About The Project
 
-```bash
-git clone
-npm install
-npm run dev
+A `@tanstack/start v1 (beta)` template with `tRPC v11` and `tailwindcss v4 (beta)`, based on the examples from the official docs. Please be aware that `@tanstack-start v1` and `tailwindcss v4` are still in beta, so things might be subject to change.
+
+## Getting Started
+
+### Prerequisites
+
+```sh
+npm install npm@latest -g
 ```
+
+### Installation
+
+1. Clone the repo, or use the template
+   ```sh
+   git clone https://github.com/jellekuipers/kolm-start.git
+   ```
+2. Install NPM packages
+   ```sh
+   npm install
+   ```
+3. Change git remote url to avoid accidental pushes to base project
+   ```sh
+   git remote set-url origin github_username/repo_name
+   git remote -v # confirm the changes
+   ```
+4. Start the dev server
+   ```sh
+   npm run dev
+   ```
 
 ## Roadmap
 
@@ -20,3 +54,25 @@ npm run dev
 - [ ] Typesafe environment variables
 - [ ] Authentication
 - [ ] i18n
+
+See the [open issues](https://github.com/jellekuipers/kolm-start/issues) for a full list of proposed features (and known issues).
+
+## Contributing
+
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+Don't forget to give the project a star! Thanks again!
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/amazing-feature`)
+3. Commit your Changes (`git commit -m 'Add some amazing-feature'`)
+4. Push to the Branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## Acknowledgments
+
+- [TanStack Start](https://tanstack.com/start/latest)
+- [tRPC](https://trpc.io/docs)
+- [Tailwind CSS](https://tailwindcss.com/docs/v4-beta)
+- [Best-README-Template](https://github.com/othneildrew/Best-README-Template)

@@ -60,11 +60,11 @@ function RootComponent() {
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html>
+    <html lang="en">
       <head>
         <Meta />
       </head>
-      <body className="font-display">
+      <body className="antialiased font-display">
         <Header />
         <main className="flex items-center justify-center h-screen flex-col gap-4 p-4">
           {children}
