@@ -1,12 +1,12 @@
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
+  <a href="https://github.com/jellekuipers/kolm-start">
     <img src="public/favicon.svg" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">kolm start</h3>
 
   <p align="center">
-    A TanStack Start template with tRPC, Drizzle ORM and TailwindCSS
+    A TanStack Start starter with tRPC, Drizzle ORM and TailwindCSS
     <br />
     <a href="https://kolm-start.vercel.app">View Demo</a>
     ·
@@ -18,7 +18,7 @@
 
 ## About The Project
 
-A `@tanstack/start v1 (beta)` template with `tRPC v11`, `drizzle-orm v0.38` and `tailwindcss v4 (beta)`, based on the examples from the official docs.
+A `@tanstack/start v1 (beta)` starter with `tRPC v11`, `drizzle-orm v0.38` and `tailwindcss v4 (beta)`, based on the examples from the official docs.
 
 Find the tRPC integration example [here](https://github.com/trpc/trpc/tree/next/examples/tanstack-start) and the TanStack Start examples [here](https://github.com/TanStack/router/tree/main/examples/react).
 
