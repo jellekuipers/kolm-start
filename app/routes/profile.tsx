@@ -12,5 +12,5 @@ function RouteComponent() {
   const trpc = useTRPC();
   const { data: user } = useSuspenseQuery(trpc.user.me.queryOptions());
 
-  return <h2 className="font-bold">Welcome, {user}</h2>;
+  return <h2 className="font-bold">Welcome, {user?.email}</h2>;
 }
