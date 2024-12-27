@@ -6,7 +6,7 @@
   <h3 align="center">kolm start</h3>
 
   <p align="center">
-    A TanStack Start template with tRPC, Drizzle and Tailwind
+    A TanStack Start template with tRPC, Drizzle ORM and TailwindCSS
     <br />
     <a href="https://kolm-start.vercel.app">View Demo</a>
     ·
@@ -88,6 +88,6 @@ Don't forget to give the project a star! Thanks again!
 
 - [TanStack Start](https://tanstack.com/start/latest)
 - [tRPC](https://trpc.io/docs)
-- [Drizzle](https://orm.drizzle.team/)
-- [Tailwind CSS](https://tailwindcss.com/docs/v4-beta)
+- [Drizzle ORM](https://orm.drizzle.team/)
+- [TailwindCSS](https://tailwindcss.com/docs/v4-beta)
 - [Best-README-Template](https://github.com/othneildrew/Best-README-Template)

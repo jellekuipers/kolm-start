@@ -1,11 +1,12 @@
 {
   "name": "kolm-start",
-  "description": "TanStack Start template with tRPC, Tailwind",
+  "description": "TanStack Start template with tRPC, Drizzle ORM and TailwindCSS",
   "author": "Jelle Kuipers <info@jellekuipers.com> (https://jellekuipers.com)",
   "version": "0.0.1",
   "type": "module",
   "keywords": [
-    "tailwind",
+    "drizzle-orm",
+    "tailwindcss",
     "tanstack-start",
     "tRPC",
     "typescript"
