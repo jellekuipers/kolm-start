@@ -6,7 +6,7 @@
   <h3 align="center">kolm start</h3>
 
   <p align="center">
-    A TanStack Start template with tRPC, Tailwind
+    A TanStack Start template with tRPC, Drizzle ORM and TailwindCSS
     <br />
     <a href="https://kolm-start.vercel.app">View Demo</a>
     ·
@@ -18,7 +18,11 @@
 
 ## About The Project
 
-A `@tanstack/start v1 (beta)` template with `tRPC v11` and `tailwindcss v4 (beta)`, based on the examples from the official docs. Please be aware that `@tanstack-start v1` and `tailwindcss v4` are still in beta, so things might be subject to change.
+A `@tanstack/start v1 (beta)` template with `tRPC v11`, `drizzle-orm v0.38` and `tailwindcss v4 (beta)`, based on the examples from the official docs.
+
+Find the tRPC integration example [here](https://github.com/trpc/trpc/tree/next/examples/tanstack-start) and the TanStack Start examples [here](https://github.com/TanStack/router/tree/main/examples/react).
+
+Please be aware that `@tanstack-start v1` and `tailwindcss v4` are still in beta, so things might be subject to change.
 
 ## Getting Started
 
@@ -34,16 +38,26 @@ npm install npm@latest -g
    ```sh
    git clone https://github.com/jellekuipers/kolm-start.git
    ```
-2. Install NPM packages
-   ```sh
-   npm install
-   ```
-3. Change git remote url to avoid accidental pushes to base project
+2. Change git remote url to avoid accidental pushes to base project
    ```sh
    git remote set-url origin github_username/repo_name
    git remote -v # confirm the changes
    ```
-4. Start the dev server
+3. Install NPM packages
+   ```sh
+   npm install
+   ```
+4. Connect to your database in your `.env`
+   ```sh
+   DATABASE_URL=
+   ```
+5. Initialize database
+
+   ```sh
+   npm run db:push
+   ```
+
+6. Start the dev server
    ```sh
    npm run dev
    ```
@@ -74,5 +88,6 @@ Don't forget to give the project a star! Thanks again!
 
 - [TanStack Start](https://tanstack.com/start/latest)
 - [tRPC](https://trpc.io/docs)
-- [Tailwind CSS](https://tailwindcss.com/docs/v4-beta)
+- [Drizzle ORM](https://orm.drizzle.team/)
+- [TailwindCSS](https://tailwindcss.com/docs/v4-beta)
 - [Best-README-Template](https://github.com/othneildrew/Best-README-Template)
