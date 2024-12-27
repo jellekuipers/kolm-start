@@ -1,3 +1,5 @@
+// https://tanstack.com/router/latest/docs/framework/react/start/getting-started#the-root-of-your-application
+
 import { QueryClient } from "@tanstack/react-query";
 import { createRouter as createTanStackRouter } from "@tanstack/react-router";
 import { routerWithQueryClient } from "@tanstack/react-router-with-query";

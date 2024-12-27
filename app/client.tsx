@@ -1,3 +1,5 @@
+// https://tanstack.com/router/latest/docs/framework/react/start/getting-started#the-client-entry-point
+
 /// <reference types="vinxi/types/client" />
 import { StartClient } from "@tanstack/start";
 import { hydrateRoot } from "react-dom/client";
