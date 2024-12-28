@@ -30,7 +30,8 @@ export const Route = createRootRouteWithContext<{
       },
       ...seo({
         title: "kolm start",
-        description: "kolm start",
+        description:
+          "TanStack Start starter with tRPC, Drizzle ORM and TailwindCSS ",
       }),
     ],
     links: [
