@@ -1,19 +1,25 @@
 // This _app component functions as a layout component that wraps all other routes in the app. It is a good place to put things like a header, footer, or sidebar that you want to appear on every page of your app.
-import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
+import {
+  createFileRoute,
+  Link,
+  Outlet,
+  useNavigate,
+} from "@tanstack/react-router";
 
 import { Logo } from "~/components/logo";
 import { Spinner } from "~/components/spinner";
-import { trpc } from "~/trpc/react";
+import { signIn, signOut, useSession } from "~/lib/auth-client";
 
 export const Route = createFileRoute("/_app")({
   component: LayoutComponent,
 });
 
 function Header() {
-  const { data, isLoading } = trpc.user.me.useQuery();
+  const { data: session, isPending, error } = useSession();
+  const navigate = useNavigate();
 
   return (
-    <header className="p-4">
+    <header className="px-4 h-16 flex items-center">
       <nav className="flex items-center gap-4">
         <Link className="font-medium hover:underline" to="/">
           <Logo />
@@ -25,17 +31,54 @@ function Header() {
         >
           Home
         </Link>
-        {isLoading ? (
+        {isPending ? (
           <Spinner />
-        ) : data ? (
-          <Link
-            activeProps={{ className: "underline" }}
-            className="font-medium hover:underline"
-            to="/profile"
+        ) : error ? null : session ? (
+          <>
+            <Link
+              activeProps={{ className: "underline" }}
+              className="font-medium hover:underline"
+              to="/users"
+            >
+              Users
+            </Link>
+            <button
+              className="rounded-md bg-black px-3 py-2 font-semibold text-white hover:bg-black/80"
+              onClick={() =>
+                signOut({
+                  fetchOptions: {
+                    onSuccess: () => {
+                      navigate({
+                        to: "/",
+                      });
+                    },
+                  },
+                })
+              }
+              type="submit"
+            >
+              Sign out
+            </button>
+          </>
+        ) : (
+          <button
+            className="rounded-md bg-black px-3 py-2 font-semibold text-white hover:bg-black/80"
+            onClick={async () =>
+              await signIn.anonymous({
+                fetchOptions: {
+                  onSuccess: () => {
+                    navigate({
+                      to: "/users",
+                    });
+                  },
+                },
+              })
+            }
+            type="submit"
           >
-            Profile
-          </Link>
-        ) : null}
+            Sign in
+          </button>
+        )}
       </nav>
     </header>
   );

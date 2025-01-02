@@ -36,6 +36,7 @@
     "@trpc/client": "11.0.0-rc.666",
     "@trpc/react-query": "11.0.0-rc.666",
     "@trpc/server": "11.0.0-rc.666",
+    "better-auth": "^1.1.8",
     "dotenv": "^16.4.7",
     "drizzle-orm": "^0.38.3",
     "pg": "^8.13.1",

@@ -1,9 +1,9 @@
 import { TRPCRouterRecord } from "@trpc/server";
 
-import { publicProcedure } from "~/trpc/init";
+import { protectedProcedure } from "~/trpc/init";
 
 export const userRouter = {
-  me: publicProcedure.query(
-    async ({ ctx }) => await ctx.db.query.users.findFirst(),
+  getAll: protectedProcedure.query(
+    async ({ ctx }) => await ctx.db.query.user.findMany(),
   ),
 } satisfies TRPCRouterRecord;
