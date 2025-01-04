@@ -1,12 +1,12 @@
 import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 
-import { db } from "~/db";
 import { auth } from "~/lib/auth";
+import { db } from "~/db";
 
-export const createContext = async (request: Request) => {
+export const createTRPCContext = async ({ headers }: { headers: Headers }) => {
   const session = await auth.api.getSession({
-    headers: request.headers,
+    headers,
   });
 
   return {
@@ -15,7 +15,7 @@ export const createContext = async (request: Request) => {
   };
 };
 
-export const t = initTRPC.context<typeof createContext>().create({
+export const t = initTRPC.context<typeof createTRPCContext>().create({
   transformer: superjson,
 });
 

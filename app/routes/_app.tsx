@@ -3,83 +3,54 @@ import {
   createFileRoute,
   Link,
   Outlet,
-  useNavigate,
+  redirect,
+  useRouter,
 } from "@tanstack/react-router";
 
+import { Button } from "~/components/button";
 import { Logo } from "~/components/logo";
-import { Spinner } from "~/components/spinner";
-import { signIn, signOut, useSession } from "~/lib/auth-client";
+import { signOut } from "~/lib/auth-client";
 
 export const Route = createFileRoute("/_app")({
+  beforeLoad: ({ context: { user } }) => {
+    if (!user) {
+      throw redirect({
+        to: "/sign-in",
+      });
+    }
+  },
   component: LayoutComponent,
 });
 
 function Header() {
-  const { data: session, isPending, error } = useSession();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   return (
-    <header className="px-4 h-16 flex items-center">
-      <nav className="flex items-center gap-4">
-        <Link className="font-medium hover:underline" to="/">
-          <Logo />
-        </Link>
-        <Link
-          activeProps={{ className: "underline" }}
-          className="font-medium hover:underline"
-          to="/"
-        >
-          Home
-        </Link>
-        {isPending ? (
-          <Spinner />
-        ) : error ? null : session ? (
-          <>
-            <Link
-              activeProps={{ className: "underline" }}
-              className="font-medium hover:underline"
-              to="/users"
-            >
-              Users
-            </Link>
-            <button
-              className="rounded-md bg-black px-3 py-2 font-semibold text-white hover:bg-black/80"
-              onClick={() =>
-                signOut({
-                  fetchOptions: {
-                    onSuccess: () => {
-                      navigate({
-                        to: "/",
-                      });
-                    },
-                  },
-                })
-              }
-              type="submit"
-            >
-              Sign out
-            </button>
-          </>
-        ) : (
-          <button
-            className="rounded-md bg-black px-3 py-2 font-semibold text-white hover:bg-black/80"
-            onClick={async () =>
-              await signIn.anonymous({
-                fetchOptions: {
-                  onSuccess: () => {
-                    navigate({
-                      to: "/users",
-                    });
-                  },
-                },
-              })
-            }
-            type="submit"
-          >
-            Sign in
-          </button>
-        )}
-      </nav>
+    <header className="px-4 h-16 flex items-center justify-around gap-4 w-full">
+      <Link className="font-medium hover:underline" to="/">
+        <Logo />
+      </Link>
+      <Link
+        className="font-semibold hover:underline"
+        activeProps={{ className: "underline" }}
+        to="/users"
+      >
+        Users
+      </Link>
+      <Button
+        onClick={async () =>
+          await signOut({
+            fetchOptions: {
+              onSuccess: () => {
+                router.invalidate();
+              },
+            },
+          })
+        }
+        type="button"
+      >
+        Sign out
+      </Button>
     </header>
   );
 }

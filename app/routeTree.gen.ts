@@ -11,11 +11,18 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as AuthImport } from './routes/_auth'
 import { Route as AppImport } from './routes/_app'
 import { Route as AppIndexImport } from './routes/_app/index'
+import { Route as AuthSignInImport } from './routes/_auth/sign-in'
 import { Route as AppUsersImport } from './routes/_app/users'
 
 // Create/Update Routes
+
+const AuthRoute = AuthImport.update({
+  id: '/_auth',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const AppRoute = AppImport.update({
   id: '/_app',
@@ -26,6 +33,12 @@ const AppIndexRoute = AppIndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AppRoute,
+} as any)
+
+const AuthSignInRoute = AuthSignInImport.update({
+  id: '/sign-in',
+  path: '/sign-in',
+  getParentRoute: () => AuthRoute,
 } as any)
 
 const AppUsersRoute = AppUsersImport.update({
@@ -45,12 +58,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppImport
       parentRoute: typeof rootRoute
     }
+    '/_auth': {
+      id: '/_auth'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthImport
+      parentRoute: typeof rootRoute
+    }
     '/_app/users': {
       id: '/_app/users'
       path: '/users'
       fullPath: '/users'
       preLoaderRoute: typeof AppUsersImport
       parentRoute: typeof AppImport
+    }
+    '/_auth/sign-in': {
+      id: '/_auth/sign-in'
+      path: '/sign-in'
+      fullPath: '/sign-in'
+      preLoaderRoute: typeof AuthSignInImport
+      parentRoute: typeof AuthImport
     }
     '/_app/': {
       id: '/_app/'
@@ -76,39 +103,62 @@ const AppRouteChildren: AppRouteChildren = {
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 
+interface AuthRouteChildren {
+  AuthSignInRoute: typeof AuthSignInRoute
+}
+
+const AuthRouteChildren: AuthRouteChildren = {
+  AuthSignInRoute: AuthSignInRoute,
+}
+
+const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
+
 export interface FileRoutesByFullPath {
-  '': typeof AppRouteWithChildren
+  '': typeof AuthRouteWithChildren
   '/users': typeof AppUsersRoute
+  '/sign-in': typeof AuthSignInRoute
   '/': typeof AppIndexRoute
 }
 
 export interface FileRoutesByTo {
+  '': typeof AuthRouteWithChildren
   '/users': typeof AppUsersRoute
+  '/sign-in': typeof AuthSignInRoute
   '/': typeof AppIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/_app': typeof AppRouteWithChildren
+  '/_auth': typeof AuthRouteWithChildren
   '/_app/users': typeof AppUsersRoute
+  '/_auth/sign-in': typeof AuthSignInRoute
   '/_app/': typeof AppIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '' | '/users' | '/'
+  fullPaths: '' | '/users' | '/sign-in' | '/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/users' | '/'
-  id: '__root__' | '/_app' | '/_app/users' | '/_app/'
+  to: '' | '/users' | '/sign-in' | '/'
+  id:
+    | '__root__'
+    | '/_app'
+    | '/_auth'
+    | '/_app/users'
+    | '/_auth/sign-in'
+    | '/_app/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   AppRoute: typeof AppRouteWithChildren
+  AuthRoute: typeof AuthRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
   AppRoute: AppRouteWithChildren,
+  AuthRoute: AuthRouteWithChildren,
 }
 
 export const routeTree = rootRoute
@@ -121,7 +171,8 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/_app"
+        "/_app",
+        "/_auth"
       ]
     },
     "/_app": {
@@ -131,9 +182,19 @@ export const routeTree = rootRoute
         "/_app/"
       ]
     },
+    "/_auth": {
+      "filePath": "_auth.tsx",
+      "children": [
+        "/_auth/sign-in"
+      ]
+    },
     "/_app/users": {
       "filePath": "_app/users.tsx",
       "parent": "/_app"
+    },
+    "/_auth/sign-in": {
+      "filePath": "_auth/sign-in.tsx",
+      "parent": "/_auth"
     },
     "/_app/": {
       "filePath": "_app/index.tsx",

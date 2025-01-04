@@ -3,6 +3,8 @@
 import { QueryClient } from "@tanstack/react-query";
 import { createRouter as createTanStackRouter } from "@tanstack/react-router";
 import { routerWithQueryClient } from "@tanstack/react-router-with-query";
+import { createServerFn } from "@tanstack/start";
+import { getWebRequest } from "@tanstack/start/server";
 import { loggerLink, unstable_httpBatchStreamLink } from "@trpc/client";
 import { createServerSideHelpers } from "@trpc/react-query/server";
 import superjson from "superjson";
@@ -14,9 +16,14 @@ import { getUrl } from "~/utils/get-url";
 
 import { routeTree } from "./routeTree.gen";
 
-// NOTE: Most of the integration code found here is experimental and will
-// definitely end up in a more streamlined API in the future. This is just
-// to show what's possible with the current APIs.
+const getRequestHeaders = createServerFn({ method: "GET" }).handler(
+  async () => {
+    const request = getWebRequest()!;
+    const headers = new Headers(request.headers);
+
+    return Object.fromEntries(headers);
+  },
+);
 
 export function createRouter() {
   const queryClient = new QueryClient({
@@ -39,11 +46,17 @@ export function createRouter() {
       unstable_httpBatchStreamLink({
         transformer: superjson,
         url: getUrl(),
+        async headers() {
+          return await getRequestHeaders();
+        },
       }),
     ],
   });
 
-  const serverHelpers = createServerSideHelpers({ client: trpcClient });
+  const serverHelpers = createServerSideHelpers({
+    client: trpcClient,
+    queryClient,
+  });
 
   const router = createTanStackRouter({
     context: { queryClient, trpc: serverHelpers },

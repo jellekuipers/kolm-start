@@ -6,7 +6,7 @@
   <h3 align="center">kolm start</h3>
 
   <p align="center">
-    A TanStack Start starter with tRPC, Drizzle ORM and TailwindCSS
+    A TanStack Start starter with tRPC, Drizzle ORM, better-auth and TailwindCSS
     <br />
     <a href="https://kolm-start.vercel.app">View Demo</a>
     ·
@@ -18,7 +18,7 @@
 
 ## About The Project
 
-A `@tanstack/start v1 (beta)` starter with `tRPC v11`, `drizzle-orm v0.38` and `tailwindcss v4 (beta)`, based on the examples from the official docs.
+A `@tanstack/start v1 (beta)` starter with `tRPC v11`, `drizzle-orm v0.38`, `better-auth v1.1.9` and `tailwindcss v4 (beta)`, based on the examples from the official docs.
 
 Find the tRPC integration example [here](https://github.com/trpc/trpc/tree/next/examples/tanstack-start) and the TanStack Start examples [here](https://github.com/TanStack/router/tree/main/examples/react).
 
@@ -64,9 +64,7 @@ npm install npm@latest -g
 
 ## Roadmap
 
-- [ ] Default procedures
 - [ ] Typesafe environment variables
-- [ ] Authentication
 - [ ] i18n
 
 See the [open issues](https://github.com/jellekuipers/kolm-start/issues) for a full list of proposed features (and known issues).
@@ -87,7 +85,10 @@ Don't forget to give the project a star! Thanks again!
 ## Acknowledgments
 
 - [TanStack Start](https://tanstack.com/start/latest)
+- [dotnize - tanstarter](https://github.com/dotnize/tanstarter)
 - [tRPC](https://trpc.io/docs)
 - [Drizzle ORM](https://orm.drizzle.team/)
+- [better-auth](https://www.better-auth.com/)
 - [TailwindCSS](https://tailwindcss.com/docs/v4-beta)
+- [create-t3-app](https://github.com/t3-oss/create-t3-app)
 - [Best-README-Template](https://github.com/othneildrew/Best-README-Template)

@@ -5,20 +5,34 @@ import {
   Outlet,
   ScrollRestoration,
 } from "@tanstack/react-router";
-import { Meta, Scripts } from "@tanstack/start";
+import { createServerFn, Meta, Scripts } from "@tanstack/start";
+import { getWebRequest } from "@tanstack/start/server";
 import { createServerSideHelpers } from "@trpc/react-query/server";
 
 import { DefaultCatchBoundary } from "~/components/default-catch-boundary";
 import { NotFound } from "~/components/not-found";
+import { auth } from "~/lib/auth";
 import appCss from "~/styles/app.css?url";
 import { AppRouter } from "~/trpc/router";
 import { ReactQueryDevtools, TanStackRouterDevtools } from "~/utils/dev-tools";
 import { seo } from "~/utils/seo";
 
+const getUser = createServerFn({ method: "GET" }).handler(async () => {
+  const { headers } = getWebRequest()!;
+  const session = await auth.api.getSession({ headers });
+
+  return session?.user || null;
+});
+
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;
   trpc: ReturnType<typeof createServerSideHelpers<AppRouter>>;
 }>()({
+  beforeLoad: async () => {
+    const user = await getUser();
+
+    return { user };
+  },
   head: () => ({
     meta: [
       {
@@ -31,7 +45,7 @@ export const Route = createRootRouteWithContext<{
       ...seo({
         title: "kolm start",
         description:
-          "TanStack Start starter with tRPC, Drizzle ORM and TailwindCSS ",
+          "TanStack Start starter with tRPC, Drizzle ORM, better-auth and TailwindCSS ",
       }),
     ],
     links: [
@@ -64,7 +78,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <Meta />
       </head>
-      <body className="antialiased font-display">
+      <body className="antialiased font-display min-h-screen flex flex-col">
         {children}
         <ScrollRestoration />
         <TanStackRouterDevtools position="bottom-right" />
