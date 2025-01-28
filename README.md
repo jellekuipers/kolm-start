@@ -22,7 +22,7 @@ A `@tanstack/start` starter with `tRPC`, `drizzle-orm`, `better-auth` and `tailw
 
 Find the tRPC integration example [here](https://github.com/trpc/trpc/tree/next/examples/tanstack-start) and the TanStack Start examples [here](https://github.com/TanStack/router/tree/main/examples/react).
 
-Please be aware that `@tanstack-start v1` and `tailwindcss v4` are still in beta, so things might be subject to change.
+Please be aware that `@tanstack-start` is still in beta, so things might be subject to change.
 
 ## Getting Started
 
