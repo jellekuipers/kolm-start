@@ -8,6 +8,8 @@ export default {
     "<THIRD_PARTY_MODULES>",
     "",
     "^~/components/(.*)$",
+    "^~/db/(.*)$",
+    "^~/lib/(.*)$",
     "^~/styles/(.*)$",
     "^~/trpc/(.*)$",
     "^~/utils/(.*)$",

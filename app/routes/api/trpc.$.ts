@@ -1,7 +1,7 @@
 import { createAPIFileRoute } from "@tanstack/start/api";
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 
-import { createContext } from "~/trpc/init";
+import { createTRPCContext } from "~/trpc/init";
 import { appRouter } from "~/trpc/router";
 
 function handler({ request }: { request: Request }) {
@@ -9,11 +9,11 @@ function handler({ request }: { request: Request }) {
     req: request,
     router: appRouter,
     endpoint: "/api/trpc",
-    createContext: () => createContext(),
+    createContext: () => createTRPCContext(request),
   });
 }
 
-export const APIRoute = createAPIFileRoute("/api/trpc")({
+export const APIRoute = createAPIFileRoute("/api/trpc/$")({
   GET: handler,
   POST: handler,
 });
