@@ -26,31 +26,33 @@ function Header() {
   const router = useRouter();
 
   return (
-    <header className="px-4 h-16 flex items-center justify-around gap-4 w-full">
+    <header className="px-4 h-16 flex items-center justify-between gap-4 w-full">
       <Link className="font-medium hover:underline" to="/">
         <Logo />
       </Link>
-      <Link
-        className="font-semibold hover:underline"
-        activeProps={{ className: "underline" }}
-        to="/users"
-      >
-        Users
-      </Link>
-      <Button
-        onClick={async () =>
-          await signOut({
-            fetchOptions: {
-              onSuccess: () => {
-                router.invalidate();
+      <nav className="flex items-center gap-4">
+        <Link
+          className="font-semibold hover:underline"
+          activeProps={{ className: "underline" }}
+          to="/users"
+        >
+          Users
+        </Link>
+        <Button
+          onClick={async () =>
+            await signOut({
+              fetchOptions: {
+                onSuccess: () => {
+                  router.invalidate();
+                },
               },
-            },
-          })
-        }
-        type="button"
-      >
-        Sign out
-      </Button>
+            })
+          }
+          type="button"
+        >
+          Sign out
+        </Button>
+      </nav>
     </header>
   );
 }

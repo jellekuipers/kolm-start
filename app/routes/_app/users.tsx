@@ -18,13 +18,27 @@ function RouteComponent() {
       {isLoading ? (
         <Spinner />
       ) : data ? (
-        <ul>
-          {data.map((user) => (
-            <li key={user.id}>
-              {user.name} - {user.email}
-            </li>
-          ))}
-        </ul>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Email</th>
+              <th>Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map(({ id, email, image, name }) => (
+              <tr key={id}>
+                <td>{id}</td>
+                <td>
+                  {image ? <img src={image} alt={email} /> : null}
+                  {email}
+                </td>
+                <td>{name}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       ) : null}
     </div>
   );
