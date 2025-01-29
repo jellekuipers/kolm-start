@@ -1,4 +1,4 @@
-// This _app component functions as a layout component that wraps all other routes in the app. It is a good place to put things like a header, footer, or sidebar that you want to appear on every page of your app.
+// This _app component functions as a layout component that wraps all authenticated routes in the app. It is a good place to put things like a header, footer, or sidebar that you want to appear on every page of your app.
 import {
   createFileRoute,
   Link,
@@ -12,8 +12,8 @@ import { Logo } from "~/components/logo";
 import { signOut } from "~/lib/auth-client";
 
 export const Route = createFileRoute("/_app")({
-  beforeLoad: ({ context: { user } }) => {
-    if (!user) {
+  beforeLoad: ({ context: { session } }) => {
+    if (!session?.user) {
       throw redirect({
         to: "/sign-in",
       });
@@ -62,7 +62,7 @@ function LayoutComponent() {
   return (
     <div className="flex flex-col h-screen">
       <Header />
-      <main className="flex items-center justify-center flex-col gap-2 p-4 flex-1">
+      <main className="gap-2 p-4 flex-1">
         <Outlet />
       </main>
     </div>

@@ -8,9 +8,9 @@ export const Route = createFileRoute("/_app/")({
 
 function RouteComponent() {
   return (
-    <>
+    <center>
       <Logo />
       <h1 className="font-black text-2xl">kolm start</h1>
-    </>
+    </center>
   );
 }

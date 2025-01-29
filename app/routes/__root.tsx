@@ -10,18 +10,17 @@ import { getWebRequest } from "@tanstack/start/server";
 import { createServerSideHelpers } from "@trpc/react-query/server";
 
 import { DefaultCatchBoundary } from "~/components/default-catch-boundary";
-import { NotFound } from "~/components/not-found";
 import { auth } from "~/lib/auth";
 import appCss from "~/styles/app.css?url";
 import { AppRouter } from "~/trpc/router";
 import { ReactQueryDevtools, TanStackRouterDevtools } from "~/utils/dev-tools";
 import { seo } from "~/utils/seo";
 
-const getUser = createServerFn({ method: "GET" }).handler(async () => {
+const getServerSession = createServerFn({ method: "GET" }).handler(async () => {
   const { headers } = getWebRequest()!;
   const session = await auth.api.getSession({ headers });
 
-  return session?.user || null;
+  return session;
 });
 
 export const Route = createRootRouteWithContext<{
@@ -29,9 +28,9 @@ export const Route = createRootRouteWithContext<{
   trpc: ReturnType<typeof createServerSideHelpers<AppRouter>>;
 }>()({
   beforeLoad: async () => {
-    const user = await getUser();
+    const session = await getServerSession();
 
-    return { user };
+    return { session };
   },
   head: () => ({
     meta: [
@@ -60,7 +59,6 @@ export const Route = createRootRouteWithContext<{
       </RootDocument>
     );
   },
-  notFoundComponent: () => <NotFound />,
   component: RootComponent,
 });
 

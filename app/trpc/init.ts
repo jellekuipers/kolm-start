@@ -26,7 +26,11 @@ const enforceUserIsAuthenticated = t.middleware(({ ctx, next }) => {
     throw new TRPCError({ code: "UNAUTHORIZED" });
   }
 
-  return next();
+  return next({
+    ctx: {
+      session: { ...ctx.session, user: ctx.session.user },
+    },
+  });
 });
 
 export const publicProcedure = t.procedure;

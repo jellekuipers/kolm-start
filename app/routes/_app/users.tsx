@@ -14,32 +14,35 @@ function RouteComponent() {
   const { data, isLoading } = useSuspenseQuery(trpc.user.getAll.queryOptions());
 
   return (
-    <div>
-      {isLoading ? (
-        <Spinner />
-      ) : data ? (
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Email</th>
-              <th>Name</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map(({ id, email, image, name }) => (
-              <tr key={id}>
-                <td>{id}</td>
-                <td>
-                  {image ? <img src={image} alt={email} /> : null}
-                  {email}
-                </td>
-                <td>{name}</td>
+    <article>
+      <h1 className="font-black text-2xl">Users</h1>
+      <section>
+        {isLoading ? (
+          <Spinner />
+        ) : data ? (
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Name</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : null}
-    </div>
+            </thead>
+            <tbody>
+              {data.map(({ id, email, image, name }) => (
+                <tr key={id}>
+                  <td>{id}</td>
+                  <td>
+                    {image ? <img src={image} alt={email} /> : null}
+                    {email}
+                  </td>
+                  <td>{name}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : null}
+      </section>
+    </article>
   );
 }
