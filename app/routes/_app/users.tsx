@@ -1,8 +1,7 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 
 import { Spinner } from "~/components/spinner";
-import { useTRPC } from "~/trpc/react";
+import { trpc } from "~/trpc/react";
 
 export const Route = createFileRoute("/_app/users")({
   loader: async ({ context: { trpc } }) => await trpc.user.getAll.prefetch(),
@@ -10,12 +9,11 @@ export const Route = createFileRoute("/_app/users")({
 });
 
 function RouteComponent() {
-  const trpc = useTRPC();
-  const { data, isLoading } = useSuspenseQuery(trpc.user.getAll.queryOptions());
+  const { data, isLoading } = trpc.user.getAll.useQuery();
 
   return (
-    <article>
-      <h1 className="font-black text-2xl">Users</h1>
+    <article className="space-y-4">
+      <h1 className="font-extrabold text-2xl">Users</h1>
       <section>
         {isLoading ? (
           <Spinner />
@@ -23,15 +21,13 @@ function RouteComponent() {
           <table>
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Email</th>
-                <th>Name</th>
+                <th className="text-left">Email</th>
+                <th className="text-left">Name</th>
               </tr>
             </thead>
             <tbody>
               {data.map(({ id, email, image, name }) => (
                 <tr key={id}>
-                  <td>{id}</td>
                   <td>
                     {image ? <img src={image} alt={email} /> : null}
                     {email}

@@ -15,7 +15,7 @@ export const Route = createFileRoute("/_app")({
   beforeLoad: ({ context: { session } }) => {
     if (!session?.user) {
       throw redirect({
-        to: "/sign-in",
+        to: "/auth/sign-in",
       });
     }
   },
@@ -26,7 +26,7 @@ function Header() {
   const router = useRouter();
 
   return (
-    <header className="px-4 h-16 flex items-center justify-between gap-4 w-full">
+    <header className="p-4 flex items-center justify-between gap-4 w-full">
       <Link className="font-medium hover:underline" to="/">
         <Logo />
       </Link>
