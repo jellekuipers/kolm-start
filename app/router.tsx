@@ -28,9 +28,7 @@ const getRequestHeaders = createServerFn({ method: "GET" }).handler(
 export function createRouter() {
   const queryClient = new QueryClient({
     defaultOptions: {
-      queries: {
-        staleTime: 30 * 1000,
-      },
+      queries: { staleTime: 30 * 1000 },
       dehydrate: { serializeData: superjson.serialize },
       hydrate: { deserializeData: superjson.deserialize },
     },
@@ -64,6 +62,7 @@ export function createRouter() {
     defaultPreload: undefined,
     defaultErrorComponent: DefaultCatchBoundary,
     defaultNotFoundComponent: () => <NotFound />,
+    scrollRestoration: true,
     Wrap: (props) => {
       return (
         <trpc.Provider client={trpcClient} queryClient={queryClient}>

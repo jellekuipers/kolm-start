@@ -2,10 +2,10 @@ import * as React from "react";
 import type { QueryClient } from "@tanstack/react-query";
 import {
   createRootRouteWithContext,
+  HeadContent,
   Outlet,
-  ScrollRestoration,
 } from "@tanstack/react-router";
-import { createServerFn, Meta, Scripts } from "@tanstack/start";
+import { createServerFn, Scripts } from "@tanstack/start";
 import { getWebRequest } from "@tanstack/start/server";
 import { createServerSideHelpers } from "@trpc/react-query/server";
 
@@ -34,13 +34,8 @@ export const Route = createRootRouteWithContext<{
   },
   head: () => ({
     meta: [
-      {
-        charSet: "utf-8",
-      },
-      {
-        name: "viewport",
-        content: "width=device-width, initial-scale=1",
-      },
+      { charSet: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
       ...seo({
         title: "kolm start",
         description:
@@ -74,11 +69,10 @@ function RootDocument({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
-        <Meta />
+        <HeadContent />
       </head>
       <body className="antialiased font-display min-h-screen flex flex-col">
         {children}
-        <ScrollRestoration />
         <TanStackRouterDevtools position="bottom-right" />
         <ReactQueryDevtools buttonPosition="bottom-left" />
         <Scripts />
