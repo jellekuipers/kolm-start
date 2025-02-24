@@ -4,8 +4,9 @@ import {
   createRootRouteWithContext,
   HeadContent,
   Outlet,
+  Scripts,
 } from "@tanstack/react-router";
-import { createServerFn, Scripts } from "@tanstack/start";
+import { createServerFn } from "@tanstack/start";
 import { getWebRequest } from "@tanstack/start/server";
 import { createServerSideHelpers } from "@trpc/react-query/server";
 
