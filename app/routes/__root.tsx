@@ -8,7 +8,7 @@ import {
 } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/start";
 import { getWebRequest } from "@tanstack/start/server";
-import { createServerSideHelpers } from "@trpc/react-query/server";
+import { TRPCOptionsProxy } from "@trpc/tanstack-react-query";
 
 import { DefaultCatchBoundary } from "~/components/default-catch-boundary";
 import { auth } from "~/lib/auth";
@@ -26,7 +26,7 @@ const getServerSession = createServerFn({ method: "GET" }).handler(async () => {
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;
-  trpc: ReturnType<typeof createServerSideHelpers<AppRouter>>;
+  trpc: TRPCOptionsProxy<AppRouter>;
 }>()({
   beforeLoad: async () => {
     const session = await getServerSession();

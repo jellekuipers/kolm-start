@@ -1,17 +1,21 @@
 // https://tanstack.com/router/latest/docs/framework/react/start/getting-started#the-root-of-your-application
 
-import { QueryClient } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createRouter as createTanStackRouter } from "@tanstack/react-router";
 import { routerWithQueryClient } from "@tanstack/react-router-with-query";
 import { createServerFn } from "@tanstack/start";
 import { getWebRequest } from "@tanstack/start/server";
-import { loggerLink, unstable_httpBatchStreamLink } from "@trpc/client";
-import { createServerSideHelpers } from "@trpc/react-query/server";
+import {
+  createTRPCClient,
+  loggerLink,
+  unstable_httpBatchStreamLink,
+} from "@trpc/client";
+import { createTRPCOptionsProxy } from "@trpc/tanstack-react-query";
 import superjson from "superjson";
 
 import { DefaultCatchBoundary } from "~/components/default-catch-boundary";
 import { NotFound } from "~/components/not-found";
-import { trpc } from "~/trpc/react";
+import { AppRouter } from "~/trpc/router";
 import { getUrl } from "~/utils/get-url";
 
 import { routeTree } from "./routeTree.gen";
@@ -25,16 +29,16 @@ const getRequestHeaders = createServerFn({ method: "GET" }).handler(
   },
 );
 
-export function createRouter() {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: { staleTime: 30 * 1000 },
-      dehydrate: { serializeData: superjson.serialize },
-      hydrate: { deserializeData: superjson.deserialize },
-    },
-  });
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: { staleTime: 30 * 1000 },
+    dehydrate: { serializeData: superjson.serialize },
+    hydrate: { deserializeData: superjson.deserialize },
+  },
+});
 
-  const trpcClient = trpc.createClient({
+export const trpc = createTRPCOptionsProxy<AppRouter>({
+  client: createTRPCClient({
     links: [
       loggerLink({
         enabled: (op) =>
@@ -49,15 +53,13 @@ export function createRouter() {
         },
       }),
     ],
-  });
+  }),
+  queryClient: new QueryClient(),
+});
 
-  const serverHelpers = createServerSideHelpers({
-    client: trpcClient,
-    queryClient,
-  });
-
+export function createRouter() {
   const router = createTanStackRouter({
-    context: { queryClient, trpc: serverHelpers },
+    context: { queryClient, trpc },
     routeTree,
     defaultPreload: undefined,
     defaultErrorComponent: DefaultCatchBoundary,
@@ -65,9 +67,9 @@ export function createRouter() {
     scrollRestoration: true,
     Wrap: (props) => {
       return (
-        <trpc.Provider client={trpcClient} queryClient={queryClient}>
+        <QueryClientProvider client={queryClient}>
           {props.children}
-        </trpc.Provider>
+        </QueryClientProvider>
       );
     },
   });
