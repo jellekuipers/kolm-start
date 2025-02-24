@@ -1,15 +1,17 @@
+import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 
 import { Spinner } from "~/components/spinner";
-import { trpc } from "~/trpc/react";
+import { trpc } from "~/router";
 
 export const Route = createFileRoute("/_app/users")({
-  loader: async ({ context: { trpc } }) => await trpc.user.getAll.prefetch(),
+  loader: async ({ context: { queryClient, trpc } }) =>
+    await queryClient.ensureQueryData(trpc.user.getAll.queryOptions()),
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { data, isLoading } = trpc.user.getAll.useQuery();
+  const { data, isLoading } = useQuery(trpc.user.getAll.queryOptions());
 
   return (
     <article className="space-y-4">
