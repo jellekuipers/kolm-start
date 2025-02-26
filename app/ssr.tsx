@@ -1,10 +1,10 @@
 // https://tanstack.com/router/latest/docs/framework/react/start/getting-started#the-server-entry-point
 
-import { getRouterManifest } from "@tanstack/start/router-manifest";
+import { getRouterManifest } from "@tanstack/react-start/router-manifest";
 import {
   createStartHandler,
   defaultStreamHandler,
-} from "@tanstack/start/server";
+} from "@tanstack/react-start/server";
 
 import { createRouter } from "./router";
 
