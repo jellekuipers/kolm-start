@@ -22,7 +22,7 @@ A `@tanstack/react-start` starter with `tRPC`, `drizzle-orm`, `better-auth` and 
 
 Find the tRPC integration example [here](https://github.com/trpc/trpc/tree/next/examples/tanstack-start) and the TanStack Start examples [here](https://github.com/TanStack/router/tree/main/examples/react).
 
-Please be aware that `@tanstack-start` is still in beta, so things might be subject to change.
+Please be aware that `@tanstack/react-start` is still in beta, so things might be subject to change.
 
 ## Getting Started
 
@@ -66,7 +66,6 @@ npm install npm@latest -g
 ## Roadmap
 
 - [ ] Typesafe environment variables
-- [ ] i18n
 
 See the [open issues](https://github.com/jellekuipers/kolm-start/issues) for a full list of proposed features (and known issues).
 
