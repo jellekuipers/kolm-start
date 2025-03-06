@@ -7,8 +7,8 @@ import * as schema from "./schema";
 async function main() {
   const user: typeof schema.user.$inferInsert = {
     id: "66d6f086-6899-4123-8bc5-ce56fb59368a",
-    name: "User Name",
-    email: "name@example.com",
+    name: "Kolm Start",
+    email: "name@kolm.start",
     emailVerified: true,
     isAnonymous: false,
     createdAt: new Date(),

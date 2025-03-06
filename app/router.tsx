@@ -1,6 +1,6 @@
 // https://tanstack.com/router/latest/docs/framework/react/start/getting-started#the-root-of-your-application
 
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient } from "@tanstack/react-query";
 import { createRouter as createTanStackRouter } from "@tanstack/react-router";
 import { routerWithQueryClient } from "@tanstack/react-router-with-query";
 import { createServerFn } from "@tanstack/react-start";
@@ -15,6 +15,7 @@ import superjson from "superjson";
 
 import { DefaultCatchBoundary } from "~/components/default-catch-boundary";
 import { NotFound } from "~/components/not-found";
+import { TRPCProvider } from "~/trpc/react";
 import { AppRouter } from "~/trpc/router";
 import { getUrl } from "~/utils/get-url";
 
@@ -37,23 +38,25 @@ const queryClient = new QueryClient({
   },
 });
 
+const trpcClient = createTRPCClient<AppRouter>({
+  links: [
+    loggerLink({
+      enabled: (op) =>
+        process.env.NODE_ENV === "development" ||
+        (op.direction === "down" && op.result instanceof Error),
+    }),
+    unstable_httpBatchStreamLink({
+      transformer: superjson,
+      url: getUrl(),
+      async headers() {
+        return await getRequestHeaders();
+      },
+    }),
+  ],
+});
+
 export const trpc = createTRPCOptionsProxy<AppRouter>({
-  client: createTRPCClient({
-    links: [
-      loggerLink({
-        enabled: (op) =>
-          process.env.NODE_ENV === "development" ||
-          (op.direction === "down" && op.result instanceof Error),
-      }),
-      unstable_httpBatchStreamLink({
-        transformer: superjson,
-        url: getUrl(),
-        async headers() {
-          return await getRequestHeaders();
-        },
-      }),
-    ],
-  }),
+  client: trpcClient,
   queryClient: new QueryClient(),
 });
 
@@ -61,15 +64,15 @@ export function createRouter() {
   const router = createTanStackRouter({
     context: { queryClient, trpc },
     routeTree,
-    defaultPreload: undefined,
+    defaultPreload: "intent",
     defaultErrorComponent: DefaultCatchBoundary,
     defaultNotFoundComponent: () => <NotFound />,
     scrollRestoration: true,
     Wrap: (props) => {
       return (
-        <QueryClientProvider client={queryClient}>
+        <TRPCProvider trpcClient={trpcClient} queryClient={queryClient}>
           {props.children}
-        </QueryClientProvider>
+        </TRPCProvider>
       );
     },
   });
