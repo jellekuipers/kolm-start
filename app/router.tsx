@@ -30,37 +30,37 @@ const getRequestHeaders = createServerFn({ method: "GET" }).handler(
   },
 );
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: { staleTime: 30 * 1000 },
-    dehydrate: { serializeData: superjson.serialize },
-    hydrate: { deserializeData: superjson.deserialize },
-  },
-});
-
-const trpcClient = createTRPCClient<AppRouter>({
-  links: [
-    loggerLink({
-      enabled: (op) =>
-        process.env.NODE_ENV === "development" ||
-        (op.direction === "down" && op.result instanceof Error),
-    }),
-    unstable_httpBatchStreamLink({
-      transformer: superjson,
-      url: getUrl(),
-      async headers() {
-        return await getRequestHeaders();
-      },
-    }),
-  ],
-});
-
-export const trpc = createTRPCOptionsProxy<AppRouter>({
-  client: trpcClient,
-  queryClient: new QueryClient(),
-});
-
 export function createRouter() {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: { staleTime: 30 * 1000 },
+      dehydrate: { serializeData: superjson.serialize },
+      hydrate: { deserializeData: superjson.deserialize },
+    },
+  });
+
+  const trpcClient = createTRPCClient<AppRouter>({
+    links: [
+      loggerLink({
+        enabled: (op) =>
+          process.env.NODE_ENV === "development" ||
+          (op.direction === "down" && op.result instanceof Error),
+      }),
+      unstable_httpBatchStreamLink({
+        transformer: superjson,
+        url: getUrl(),
+        async headers() {
+          return await getRequestHeaders();
+        },
+      }),
+    ],
+  });
+
+  const trpc = createTRPCOptionsProxy<AppRouter>({
+    client: trpcClient,
+    queryClient,
+  });
+
   const router = createTanStackRouter({
     context: { queryClient, trpc },
     routeTree,
