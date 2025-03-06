@@ -61,7 +61,7 @@ export function createRouter() {
   const router = createTanStackRouter({
     context: { queryClient, trpc },
     routeTree,
-    defaultPreload: undefined,
+    defaultPreload: "intent",
     defaultErrorComponent: DefaultCatchBoundary,
     defaultNotFoundComponent: () => <NotFound />,
     scrollRestoration: true,

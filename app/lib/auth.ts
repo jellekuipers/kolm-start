@@ -10,7 +10,7 @@ export const auth = betterAuth({
   }),
   plugins: [
     anonymous({
-      emailDomainName: "example.com",
+      emailDomainName: "kolm.start",
     }),
   ],
 });
