@@ -24,6 +24,8 @@ Find the tRPC integration example [here](https://github.com/trpc/trpc/tree/next/
 
 Please be aware that `@tanstack/react-start` is still in beta, so things might be subject to change.
 
+Check out <a href="https://github.com/jellekuipers/kolm-start-admin">kolm-start-admin</a>, for a `@tanstack/react-start` + `better-auth` admin starter, with `drizzle-orm`, `tRPC`, `@radix-ui/themes`.
+
 ## Getting Started
 
 ### Prerequisites
