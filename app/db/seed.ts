@@ -16,8 +16,14 @@ async function main() {
   };
 
   await db.insert(schema.user).values(user);
-
-  console.log("User created");
 }
 
-main();
+main()
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    console.log("Done seeding database.");
+    process.exit(0);
+  });
