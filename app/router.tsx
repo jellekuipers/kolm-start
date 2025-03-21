@@ -7,8 +7,8 @@ import { createServerFn } from "@tanstack/react-start";
 import { getWebRequest } from "@tanstack/react-start/server";
 import {
   createTRPCClient,
+  httpBatchStreamLink,
   loggerLink,
-  unstable_httpBatchStreamLink,
 } from "@trpc/client";
 import { createTRPCOptionsProxy } from "@trpc/tanstack-react-query";
 import superjson from "superjson";
@@ -46,7 +46,7 @@ export function createRouter() {
           process.env.NODE_ENV === "development" ||
           (op.direction === "down" && op.result instanceof Error),
       }),
-      unstable_httpBatchStreamLink({
+      httpBatchStreamLink({
         transformer: superjson,
         url: getUrl(),
         async headers() {
