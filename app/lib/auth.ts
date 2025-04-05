@@ -13,4 +13,5 @@ export const auth = betterAuth({
       emailDomainName: "kolm.start",
     }),
   ],
+  trustedOrigins: ["http://localhost:3001"],
 });
