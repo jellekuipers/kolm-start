@@ -6,7 +6,7 @@
   <h3 align="center">kolm start</h3>
 
   <p align="center">
-    A TanStack Start starter with tRPC, Drizzle ORM, better-auth and TailwindCSS
+    A very minimal TanStack Start starter with tRPC, Drizzle ORM, better-auth and TailwindCSS
     <br />
     <a href="https://kolm-start.vercel.app">View Demo</a>
     ·
@@ -18,7 +18,7 @@
 
 ## About The Project
 
-A `@tanstack/react-start` starter with `tRPC`, `drizzle-orm`, `better-auth` and `tailwindcss`, based on the examples from the official docs.
+A very minimal `@tanstack/react-start` starter with `tRPC`, `drizzle-orm`, `better-auth` and `tailwindcss`, based on the examples from the official docs.
 
 Find the tRPC integration example [here](https://github.com/trpc/trpc/tree/next/examples/tanstack-start) and the TanStack Start examples [here](https://github.com/TanStack/router/tree/main/examples/react).
 
