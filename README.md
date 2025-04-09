@@ -65,6 +65,38 @@ npm install npm@latest -g
    npm run dev
    ```
 
+## Enable CORS
+
+In `app.config.ts` add the following lines:
+
+```diff
+export default defineConfig({
+  server: {
+    preset: "node-server",
++    routeRules: {
++      "/api/**": {
++        cors: true,
++        headers: {
++          "access-control-allow-methods": "GET, POST",
++          "access-control-allow-credentials": "true",
++        },
++      },
++    },
+  },
+  vite: {
+    plugins: [
+```
+
+Add the external clients to `trustedOrigins` in `app/lib/auth.ts`:
+
+```diff
+            emailDomainName: "kolm.start",
+         }),
+      ],
++     trustedOrigins: ["http://localhost:3001"],
+   });
+```
+
 ## Roadmap
 
 - [ ] Typesafe environment variables
