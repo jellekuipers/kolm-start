@@ -1,8 +1,8 @@
 // This _app component functions as a layout component that wraps all authenticated routes in the app. It is a good place to put things like a header, footer, or sidebar that you want to appear on every page of your app.
 import {
-  createFileRoute,
   Link,
   Outlet,
+  createFileRoute,
   redirect,
   useRouter,
 } from "@tanstack/react-router";

@@ -16,7 +16,7 @@ import superjson from "superjson";
 import { DefaultCatchBoundary } from "~/components/default-catch-boundary";
 import { NotFound } from "~/components/not-found";
 import { TRPCProvider } from "~/trpc/react";
-import { AppRouter } from "~/trpc/router";
+import type { AppRouter } from "~/trpc/router";
 import { getUrl } from "~/utils/get-url";
 
 import { routeTree } from "./routeTree.gen";
