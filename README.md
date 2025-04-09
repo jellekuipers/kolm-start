@@ -8,8 +8,6 @@
   <p align="center">
     A TanStack Start starter with tRPC, Drizzle ORM, better-auth and TailwindCSS
     <br />
-    <a href="https://kolm-start.vercel.app">View Demo</a>
-    ·
     <a href="https://github.com/jellekuipers/kolm-start/issues/new?labels=bug">Report Bug</a>
     ·
     <a href="https://github.com/jellekuipers/kolm-start/issues/new?labels=feature-request">Request Feature</a>
@@ -65,7 +63,7 @@ npm install npm@latest -g
    npm run dev
    ```
 
-## Enable CORS
+## How to enable CORS
 
 In `app.config.ts` add the following lines:
 
