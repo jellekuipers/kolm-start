@@ -24,6 +24,8 @@ Please be aware that `@tanstack/react-start` is still in beta, so things might b
 
 Check out <a href="https://github.com/jellekuipers/kolm-start-admin">kolm-start-admin</a>, for a `@tanstack/react-start` + `better-auth` admin starter, with `drizzle-orm`, `tRPC`, `@radix-ui/themes`.
 
+Or <a href="https://github.com/jellekuipers/kolm-serve">kolm-serve</a> for a `hono` server with `better-auth`, `tRPC` and `drizzle-orm`.
+
 ## Getting Started
 
 ### Prerequisites
