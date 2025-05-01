@@ -2,7 +2,7 @@
   "name": "kolm-start",
   "description": "TanStack Start starter with tRPC, Drizzle ORM, better-auth and TailwindCSS",
   "author": "Jelle Kuipers <info@jellekuipers.com> (https://jellekuipers.com)",
-  "version": "0.4.11",
+  "version": "0.4.12",
   "type": "module",
   "keywords": [
     "better-auth",
