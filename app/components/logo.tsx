@@ -1,7 +1,9 @@
 export function Logo() {
   return (
     <svg
+      aria-label="Logo"
       className="size-8"
+      role="img"
       viewBox="0 0 200 200"
       xmlns="http://www.w3.org/2000/svg"
     >
