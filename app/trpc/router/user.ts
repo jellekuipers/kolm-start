@@ -1,4 +1,4 @@
-import { TRPCRouterRecord } from "@trpc/server";
+import type { TRPCRouterRecord } from "@trpc/server";
 
 import { protectedProcedure } from "~/trpc/init";
 
