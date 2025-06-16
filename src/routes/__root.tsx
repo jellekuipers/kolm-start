@@ -1,22 +1,23 @@
-import type { QueryClient } from "@tanstack/react-query";
+/// <reference types="vite/client" />
+import type { QueryClient } from '@tanstack/react-query';
 import {
   HeadContent,
   Outlet,
   Scripts,
   createRootRouteWithContext,
-} from "@tanstack/react-router";
-import { createServerFn } from "@tanstack/react-start";
-import { getWebRequest } from "@tanstack/react-start/server";
-import type { TRPCOptionsProxy } from "@trpc/tanstack-react-query";
+} from '@tanstack/react-router';
+import { createServerFn } from '@tanstack/react-start';
+import { getWebRequest } from '@tanstack/react-start/server';
+import type { TRPCOptionsProxy } from '@trpc/tanstack-react-query';
 
-import { DefaultCatchBoundary } from "~/components/default-catch-boundary";
-import { auth } from "~/lib/auth";
-import appCss from "~/styles/app.css?url";
-import type { AppRouter } from "~/trpc/router";
-import { ReactQueryDevtools, TanStackRouterDevtools } from "~/utils/dev-tools";
-import { seo } from "~/utils/seo";
+import { DefaultCatchBoundary } from '~/components/default-catch-boundary';
+import { auth } from '~/lib/auth';
+import appCss from '~/styles/app.css?url';
+import type { AppRouter } from '~/trpc/router';
+import { ReactQueryDevtools, TanStackRouterDevtools } from '~/utils/dev-tools';
+import { seo } from '~/utils/seo';
 
-const getServerSession = createServerFn({ method: "GET" }).handler(async () => {
+const getServerSession = createServerFn({ method: 'GET' }).handler(async () => {
   const { headers } = getWebRequest()!;
   const session = await auth.api.getSession({ headers });
 
@@ -34,17 +35,17 @@ export const Route = createRootRouteWithContext<{
   },
   head: () => ({
     meta: [
-      { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { charSet: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       ...seo({
-        title: "kolm start",
+        title: 'kolm start',
         description:
-          "TanStack Start starter with tRPC, Drizzle ORM, better-auth and TailwindCSS ",
+          'TanStack Start starter with tRPC, Drizzle ORM, better-auth and TailwindCSS ',
       }),
     ],
     links: [
-      { rel: "stylesheet", href: appCss },
-      { rel: "icon", href: "/favicon.svg" },
+      { rel: 'stylesheet', href: appCss },
+      { rel: 'icon', href: '/favicon.svg' },
     ],
   }),
   errorComponent: (props) => {
