@@ -5,7 +5,7 @@ import { useTRPC } from "~/trpc/react";
 
 export const Route = createFileRoute("/_app/users")({
   loader: async ({ context }) =>
-    await context.queryClient.prefetchQuery(
+    await context.queryClient.ensureQueryData(
       context.trpc.user.getAll.queryOptions(),
     ),
   component: RouteComponent,
