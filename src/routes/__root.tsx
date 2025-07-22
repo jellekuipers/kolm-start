@@ -19,8 +19,14 @@ import { ReactQueryDevtools, TanStackRouterDevtools } from "~/utils/dev-tools";
 import { seo } from "~/utils/seo";
 
 const getServerSession = createServerFn({ method: "GET" }).handler(async () => {
-  const { headers } = getWebRequest()!;
-  const session = await auth.api.getSession({ headers });
+  const { headers } = getWebRequest();
+
+  const session = await auth.api.getSession({
+    headers,
+    query: {
+      disableCookieCache: true,
+    },
+  });
 
   return session;
 });
