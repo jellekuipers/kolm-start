@@ -6,10 +6,9 @@ yarn.lock
 .env
 .vercel
 .output
-.vinxi
-
+.nitro
 /build/
 /api/
 /server/build
-/public/build
-.vinxi
+/playwright/.cache/
+.tanstack

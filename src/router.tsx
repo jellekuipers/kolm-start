@@ -23,7 +23,7 @@ import { routeTree } from "./routeTree.gen";
 
 const getRequestHeaders = createServerFn({ method: "GET" }).handler(
   async () => {
-    const request = getWebRequest()!;
+    const request = getWebRequest();
     const headers = new Headers(request.headers);
 
     return Object.fromEntries(headers);
