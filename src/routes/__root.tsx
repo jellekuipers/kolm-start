@@ -7,7 +7,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
-import { getWebRequest } from "@tanstack/react-start/server";
+import { getRequestHeaders } from "@tanstack/react-start/server";
 import type { TRPCOptionsProxy } from "@trpc/tanstack-react-query";
 
 import { DefaultCatchBoundary } from "~/components/default-catch-boundary";
@@ -18,16 +18,23 @@ import { ReactQueryDevtools, TanStackRouterDevtools } from "~/utils/dev-tools";
 import { seo } from "~/utils/seo";
 
 const getServerSession = createServerFn({ method: "GET" }).handler(async () => {
-  const { headers } = getWebRequest();
+  const headers = getRequestHeaders();
 
-  const session = await auth.api.getSession({
+  const serverSession = await auth.api.getSession({
     headers,
     query: {
       disableCookieCache: true,
     },
   });
 
-  return session;
+  if (serverSession) {
+    const { session, user } = serverSession;
+
+    return {
+      session,
+      user,
+    };
+  }
 });
 
 export const Route = createRootRouteWithContext<{

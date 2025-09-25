@@ -1,10 +1,10 @@
 // https://tanstack.com/router/latest/docs/framework/react/start/getting-started#the-root-of-your-application
 
 import { QueryClient } from "@tanstack/react-query";
-import { createRouter as createTanStackRouter } from "@tanstack/react-router";
-import { routerWithQueryClient } from "@tanstack/react-router-with-query";
+import { createRouter } from "@tanstack/react-router";
+import { setupRouterSsrQueryIntegration } from "@tanstack/react-router-ssr-query";
 import { createServerFn } from "@tanstack/react-start";
-import { getWebRequest } from "@tanstack/react-start/server";
+import { getRequestHeaders } from "@tanstack/react-start/server";
 import {
   createTRPCClient,
   httpBatchStreamLink,
@@ -12,25 +12,20 @@ import {
 } from "@trpc/client";
 import { createTRPCOptionsProxy } from "@trpc/tanstack-react-query";
 import superjson from "superjson";
-
 import { DefaultCatchBoundary } from "~/components/default-catch-boundary";
 import { NotFound } from "~/components/not-found";
 import { TRPCProvider } from "~/trpc/react";
 import type { AppRouter } from "~/trpc/router";
 import { getUrl } from "~/utils/get-url";
-
 import { routeTree } from "./routeTree.gen";
 
-const getRequestHeaders = createServerFn({ method: "GET" }).handler(
-  async () => {
-    const request = getWebRequest();
-    const headers = new Headers(request.headers);
+const getHeaders = createServerFn({ method: "GET" }).handler(async () => {
+  const headers = getRequestHeaders();
 
-    return Object.fromEntries(headers);
-  },
-);
+  return Object.fromEntries(headers);
+});
 
-export function createRouter() {
+export function getRouter() {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: { staleTime: 30 * 1000 },
@@ -50,7 +45,7 @@ export function createRouter() {
         transformer: superjson,
         url: getUrl(),
         async headers() {
-          return await getRequestHeaders();
+          return await getHeaders();
         },
       }),
     ],
@@ -61,7 +56,7 @@ export function createRouter() {
     queryClient,
   });
 
-  const router = createTanStackRouter({
+  const router = createRouter({
     context: { queryClient, trpc },
     routeTree,
     defaultPreload: "intent",
@@ -76,12 +71,16 @@ export function createRouter() {
       );
     },
   });
+  setupRouterSsrQueryIntegration({
+    router,
+    queryClient,
+  });
 
-  return routerWithQueryClient(router, queryClient);
+  return router;
 }
 
 declare module "@tanstack/react-router" {
   interface Register {
-    router: ReturnType<typeof createRouter>;
+    router: ReturnType<typeof getRouter>;
   }
 }

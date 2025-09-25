@@ -12,3 +12,4 @@ yarn.lock
 /server/build
 /playwright/.cache/
 .tanstack
+dist
