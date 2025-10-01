@@ -20,9 +20,9 @@ A `@tanstack/react-start` starter with `tRPC`, `drizzle-orm`, `better-auth` and 
 
 Find the tRPC integration example [here](https://github.com/trpc/trpc/tree/next/examples/tanstack-start) and the TanStack Start examples [here](https://github.com/TanStack/router/tree/main/examples/react).
 
-Please be aware that `@tanstack/react-start` is still in beta, so things might be subject to change.
+Please be aware that `@tanstack/react-start` is RC, so things might be subject to change.
 
-Check out <a href="https://github.com/jellekuipers/kolm-start-admin">kolm-start-admin</a>, for a `@tanstack/react-start` + `better-auth` admin starter, with `drizzle-orm`, `tRPC`, `@radix-ui/themes`.
+Check out <a href="https://github.com/jellekuipers/kolm-start-admin">kolm-start-admin</a>, for a `@tanstack/react-start` + `better-auth` admin starter, with `prisma-orm`, `react-aria`.
 
 Or <a href="https://github.com/jellekuipers/kolm-serve">kolm-serve</a> for a `hono` server with `better-auth`, `tRPC` and `drizzle-orm`.
 
@@ -65,41 +65,11 @@ npm install npm@latest -g
    npm run dev
    ```
 
-## How to enable CORS
+## Deployment
 
-In `app.config.ts` add the following lines:
+See the [official docs](https://tanstack.com/start/latest/docs/framework/react/hosting) for instructions on building and deployment
 
-```diff
-export default defineConfig({
-  server: {
-    preset: "node-server",
-+    routeRules: {
-+      "/api/**": {
-+        cors: true,
-+        headers: {
-+          "access-control-allow-methods": "GET, POST",
-+          "access-control-allow-credentials": "true",
-+        },
-+      },
-+    },
-  },
-  vite: {
-    plugins: [
-```
-
-Add the external clients to `trustedOrigins` in `app/lib/auth.ts`:
-
-```diff
-            emailDomainName: "kolm.start",
-         }),
-      ],
-+     trustedOrigins: ["http://localhost:3001"],
-   });
-```
-
-## Roadmap
-
-- [ ] Typesafe environment variables
+## Issues
 
 See the [open issues](https://github.com/jellekuipers/kolm-start/issues) for a full list of proposed features (and known issues).
 
