@@ -1,11 +1,15 @@
 /// <reference types="vite/client" />
+
+import { TanStackDevtools } from "@tanstack/react-devtools";
 import type { QueryClient } from "@tanstack/react-query";
+import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
 import {
   createRootRouteWithContext,
   HeadContent,
   Outlet,
   Scripts,
 } from "@tanstack/react-router";
+import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { createServerFn } from "@tanstack/react-start";
 import { getRequestHeaders } from "@tanstack/react-start/server";
 import type { TRPCOptionsProxy } from "@trpc/tanstack-react-query";
@@ -14,7 +18,6 @@ import { DefaultCatchBoundary } from "~/components/default-catch-boundary";
 import { auth } from "~/lib/auth";
 import appCss from "~/styles/app.css?url";
 import type { AppRouter } from "~/trpc/router";
-import { ReactQueryDevtools, TanStackRouterDevtools } from "~/utils/dev-tools";
 import { seo } from "~/utils/seo";
 
 const getServerSession = createServerFn({ method: "GET" }).handler(async () => {
@@ -87,8 +90,18 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body className="antialiased font-display min-h-screen flex flex-col">
         {children}
-        <TanStackRouterDevtools position="bottom-right" />
-        <ReactQueryDevtools buttonPosition="bottom-left" />
+        <TanStackDevtools
+          plugins={[
+            {
+              name: "TanStack Query",
+              render: <ReactQueryDevtoolsPanel />,
+            },
+            {
+              name: "TanStack Router",
+              render: <TanStackRouterDevtoolsPanel />,
+            },
+          ]}
+        />
         <Scripts />
       </body>
     </html>
