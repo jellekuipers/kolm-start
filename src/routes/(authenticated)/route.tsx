@@ -1,4 +1,4 @@
-// This _app component functions as a layout component that wraps all authenticated routes in the app. It is a good place to put things like a header, footer, or sidebar that you want to appear on every page of your app.
+// This route component functions as a layout component that wraps all authenticated routes in the app. It is a good place to put things like a header, footer, or sidebar that you want to appear on every page of your app.
 import {
   createFileRoute,
   Link,
@@ -11,15 +11,15 @@ import { Button } from "~/components/button";
 import { Logo } from "~/components/logo";
 import { signOut } from "~/lib/auth-client";
 
-export const Route = createFileRoute("/_app")({
+export const Route = createFileRoute("/(authenticated)")({
   beforeLoad: ({ context: { session } }) => {
     if (!session?.user) {
       throw redirect({
-        to: "/auth/sign-in",
+        to: "/sign-in",
       });
     }
   },
-  component: LayoutComponent,
+  component: RouteComponent,
 });
 
 function Header() {
@@ -58,7 +58,7 @@ function Header() {
 }
 
 // This layout component is a simple layout that includes a header and a main content area. The main content area is where the child routes will be rendered.
-function LayoutComponent() {
+function RouteComponent() {
   return (
     <div className="flex flex-col h-screen">
       <Header />

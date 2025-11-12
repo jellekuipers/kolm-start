@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { useTRPC } from "~/trpc/react";
 
-export const Route = createFileRoute("/_app/users")({
+export const Route = createFileRoute("/(authenticated)/users")({
   loader: async ({ context }) =>
     await context.queryClient.ensureQueryData(
       context.trpc.user.getAll.queryOptions(),
